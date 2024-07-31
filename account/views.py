@@ -9,10 +9,6 @@ from .serializers import UserSerializer
 
 @api_view(['POST'])
 def register(request):
-    if not request.content_type == 'application/json':
-        return Response({"detail": "Unsupported media type \"{}\" in request.".format(request.content_type)},
-                        status=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
-
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -22,10 +18,6 @@ def register(request):
 
 @api_view(['POST'])
 def login(request):
-    if not request.content_type == 'application/json':
-        return Response({"detail": "Unsupported media type \"{}\" in request.".format(request.content_type)},
-                        status=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
-
     from django.contrib.auth import authenticate
 
     username = request.data.get('username')
